@@ -26,8 +26,9 @@ public class CadastroUsuario extends javax.swing.JInternalFrame {
     /**
      * Creates new form CadastroUsuario
      */
-
-            
+    String status_situacao;
+    
+    
     String id_usuario;
     public CadastroUsuario() {
         initComponents();
@@ -60,6 +61,8 @@ public class CadastroUsuario extends javax.swing.JInternalFrame {
         btExcluir = new javax.swing.JButton();
         btAlterar = new javax.swing.JButton();
         jLabel6 = new javax.swing.JLabel();
+        jLabel7 = new javax.swing.JLabel();
+        statusL = new javax.swing.JTextField();
 
         setBackground(new java.awt.Color(255, 255, 255));
         setClosable(true);
@@ -82,7 +85,7 @@ public class CadastroUsuario extends javax.swing.JInternalFrame {
 
             },
             new String [] {
-                "Id Usuário", "Nome de Usuário", "Email", "Senha"
+                "Id Usuário", "Nome de Usuário", "Email", "Senha", "Status"
             }
         ));
         tabela.setCursor(new java.awt.Cursor(java.awt.Cursor.DEFAULT_CURSOR));
@@ -120,6 +123,11 @@ public class CadastroUsuario extends javax.swing.JInternalFrame {
                 btExcluirMouseClicked(evt);
             }
         });
+        btExcluir.addActionListener(new java.awt.event.ActionListener() {
+            public void actionPerformed(java.awt.event.ActionEvent evt) {
+                btExcluirActionPerformed(evt);
+            }
+        });
 
         btAlterar.setBackground(new java.awt.Color(153, 0, 0));
         btAlterar.setForeground(new java.awt.Color(255, 255, 255));
@@ -132,33 +140,44 @@ public class CadastroUsuario extends javax.swing.JInternalFrame {
 
         jLabel6.setIcon(new javax.swing.ImageIcon(getClass().getResource("/img/logo_menu_planos.png"))); // NOI18N
 
+        jLabel7.setText("Status");
+
+        statusL.setEnabled(false);
+
         javax.swing.GroupLayout layout = new javax.swing.GroupLayout(getContentPane());
         getContentPane().setLayout(layout);
         layout.setHorizontalGroup(
             layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
             .addGroup(layout.createSequentialGroup()
-                .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.TRAILING)
-                    .addGroup(layout.createSequentialGroup()
-                        .addContainerGap(javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
-                        .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.TRAILING)
-                            .addComponent(jLabel3)
-                            .addComponent(jLabel4)))
-                    .addGroup(layout.createSequentialGroup()
-                        .addGap(16, 16, 16)
-                        .addComponent(jLabel6)
-                        .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED, 42, Short.MAX_VALUE)
-                        .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-                            .addComponent(jLabel2, javax.swing.GroupLayout.Alignment.TRAILING)
-                            .addComponent(jLabel1, javax.swing.GroupLayout.Alignment.TRAILING))))
-                .addGap(18, 18, 18)
-                .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING, false)
-                    .addComponent(nome)
-                    .addComponent(email)
-                    .addComponent(senha)
-                    .addComponent(id, javax.swing.GroupLayout.Alignment.TRAILING, javax.swing.GroupLayout.PREFERRED_SIZE, 216, javax.swing.GroupLayout.PREFERRED_SIZE))
-                .addGap(535, 535, 535))
-            .addGroup(layout.createSequentialGroup()
                 .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+                    .addGroup(layout.createSequentialGroup()
+                        .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+                            .addGroup(layout.createSequentialGroup()
+                                .addGap(16, 16, 16)
+                                .addComponent(jLabel6)
+                                .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+                                    .addGroup(javax.swing.GroupLayout.Alignment.TRAILING, layout.createSequentialGroup()
+                                        .addGap(69, 69, 69)
+                                        .addComponent(jLabel3))
+                                    .addGroup(layout.createSequentialGroup()
+                                        .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
+                                        .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.TRAILING)
+                                            .addComponent(jLabel2)
+                                            .addComponent(jLabel1))))
+                                .addGap(18, 18, 18))
+                            .addGroup(javax.swing.GroupLayout.Alignment.TRAILING, layout.createSequentialGroup()
+                                .addContainerGap()
+                                .addComponent(jLabel4)
+                                .addGap(17, 17, 17)))
+                        .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING, false)
+                            .addComponent(nome)
+                            .addComponent(email)
+                            .addComponent(senha)
+                            .addComponent(id, javax.swing.GroupLayout.Alignment.TRAILING, javax.swing.GroupLayout.PREFERRED_SIZE, 216, javax.swing.GroupLayout.PREFERRED_SIZE))
+                        .addGap(49, 49, 49)
+                        .addComponent(jLabel7)
+                        .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
+                        .addComponent(statusL, javax.swing.GroupLayout.PREFERRED_SIZE, 125, javax.swing.GroupLayout.PREFERRED_SIZE))
                     .addGroup(layout.createSequentialGroup()
                         .addGap(512, 512, 512)
                         .addComponent(jLabel5))
@@ -172,35 +191,42 @@ public class CadastroUsuario extends javax.swing.JInternalFrame {
                             .addComponent(btExcluir, javax.swing.GroupLayout.Alignment.TRAILING, javax.swing.GroupLayout.PREFERRED_SIZE, 146, javax.swing.GroupLayout.PREFERRED_SIZE)
                             .addComponent(btListar, javax.swing.GroupLayout.Alignment.TRAILING, javax.swing.GroupLayout.PREFERRED_SIZE, 143, javax.swing.GroupLayout.PREFERRED_SIZE)))
                     .addGroup(layout.createSequentialGroup()
-                        .addGap(47, 47, 47)
+                        .addGap(44, 44, 44)
                         .addComponent(jScrollPane1, javax.swing.GroupLayout.PREFERRED_SIZE, 1108, javax.swing.GroupLayout.PREFERRED_SIZE)))
-                .addContainerGap(javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE))
+                .addContainerGap(77, Short.MAX_VALUE))
         );
         layout.setVerticalGroup(
             layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
             .addGroup(layout.createSequentialGroup()
-                .addGap(23, 23, 23)
                 .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
                     .addGroup(layout.createSequentialGroup()
-                        .addComponent(jLabel5)
-                        .addGap(49, 49, 49)
+                        .addGap(23, 23, 23)
+                        .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+                            .addComponent(jLabel5)
+                            .addComponent(jLabel6))
+                        .addGap(118, 118, 118))
+                    .addGroup(javax.swing.GroupLayout.Alignment.TRAILING, layout.createSequentialGroup()
+                        .addContainerGap()
                         .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
                             .addComponent(id, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
-                            .addComponent(jLabel1))
+                            .addComponent(jLabel1)
+                            .addComponent(jLabel7)
+                            .addComponent(statusL, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE))
                         .addGap(22, 22, 22)
                         .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
                             .addComponent(nome, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
-                            .addComponent(jLabel2)))
-                    .addComponent(jLabel6))
-                .addGap(18, 18, 18)
-                .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
-                    .addComponent(email, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
-                    .addComponent(jLabel3))
-                .addGap(18, 18, 18)
-                .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
-                    .addComponent(senha, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
-                    .addComponent(jLabel4))
-                .addGap(27, 27, 27)
+                            .addComponent(jLabel2))
+                        .addGap(18, 18, 18)
+                        .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
+                            .addComponent(email, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
+                            .addComponent(jLabel3))
+                        .addGap(18, 18, 18)
+                        .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+                            .addComponent(senha, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
+                            .addGroup(layout.createSequentialGroup()
+                                .addGap(4, 4, 4)
+                                .addComponent(jLabel4)))
+                        .addGap(30, 30, 30)))
                 .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING, false)
                     .addComponent(btListar, javax.swing.GroupLayout.PREFERRED_SIZE, 32, javax.swing.GroupLayout.PREFERRED_SIZE)
                     .addComponent(btCadastrar, javax.swing.GroupLayout.PREFERRED_SIZE, 32, javax.swing.GroupLayout.PREFERRED_SIZE))
@@ -208,9 +234,9 @@ public class CadastroUsuario extends javax.swing.JInternalFrame {
                 .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
                     .addComponent(btExcluir, javax.swing.GroupLayout.PREFERRED_SIZE, 32, javax.swing.GroupLayout.PREFERRED_SIZE)
                     .addComponent(btAlterar, javax.swing.GroupLayout.PREFERRED_SIZE, 32, javax.swing.GroupLayout.PREFERRED_SIZE))
-                .addGap(34, 34, 34)
+                .addGap(27, 27, 27)
                 .addComponent(jScrollPane1, javax.swing.GroupLayout.PREFERRED_SIZE, 356, javax.swing.GroupLayout.PREFERRED_SIZE)
-                .addContainerGap(130, Short.MAX_VALUE))
+                .addContainerGap(137, Short.MAX_VALUE))
         );
 
         pack();
@@ -228,7 +254,7 @@ public class CadastroUsuario extends javax.swing.JInternalFrame {
             DebugLoggerSwing.log("Listando Usuarios");
             while(rs.next()){
                 Object [] dados = {rs.getString("id_usuario"),rs.getString("nome"),rs.getString("email"),
-                rs.getString("senha")};
+                rs.getString("senha"),rs.getString("statusL")};
                 tabelaModelo.addRow(dados);
                 
             }
@@ -240,15 +266,16 @@ public class CadastroUsuario extends javax.swing.JInternalFrame {
         } catch (SQLException ex) {
             DebugLoggerSwing.log("Erro ao Listar Todos" );
             Logger.getLogger(CadastroUsuario.class.getName()).log(Level.SEVERE, null, ex);
-             DebugLoggerSwing.log("Erro encontrado", ex);
+             DebugLoggerSwing.log("Erro encontrado em Lista", ex);
         };
     }//GEN-LAST:event_btListarMouseClicked
 
     private void tabelaMouseClicked(java.awt.event.MouseEvent evt) {//GEN-FIRST:event_tabelaMouseClicked
-        id_usuario = (tabela.getValueAt(tabela.getSelectedRow(), 0).toString());
+        id.setText(tabela.getValueAt(tabela.getSelectedRow(), 0).toString());
         nome.setText(tabela.getValueAt(tabela.getSelectedRow(), 1).toString());
         email.setText(tabela.getValueAt(tabela.getSelectedRow(), 2).toString());
         senha.setText(tabela.getValueAt(tabela.getSelectedRow(), 3).toString());
+        statusL.setText(tabela.getValueAt(tabela.getSelectedRow(), 4).toString());
         
     }//GEN-LAST:event_tabelaMouseClicked
 
@@ -257,7 +284,7 @@ public class CadastroUsuario extends javax.swing.JInternalFrame {
         try {
             DebugLoggerSwing.log("Conectando com o banco de dados");
             Connection con = Conexao.conexaoBanco();
-            String sql = "INSERT INTO usuario(nome,email,senha)VALUES(?,?,?);";
+            String sql = "INSERT INTO usuario(nome,email,senha,statusL)VALUES(?,?,?,?);";
             System.out.println("Comecou a cadastrar 2");
             PreparedStatement stmt = con.prepareStatement(sql);
             stmt.setString(1, nome.getText());
@@ -266,7 +293,9 @@ public class CadastroUsuario extends javax.swing.JInternalFrame {
                 DebugLoggerSwing.log("Inicando Cadastro do Usuario Email" + email );
             stmt.setString(3, senha.getText());
              DebugLoggerSwing.log("Inicando Cadastro do Usuario Senha" + senha );
-            stmt.execute();
+             stmt.setString(4, statusL.getText());
+               DebugLoggerSwing.log("Alterando Status" + statusL);
+             stmt.execute();
          
             stmt.close();
             con.close();
@@ -274,10 +303,12 @@ public class CadastroUsuario extends javax.swing.JInternalFrame {
             nome.setText(null);
             email.setText(null);
             senha.setText(null);
+            statusL.setText(null);
+            id.setText(null);
 
         } catch (SQLException ex) {
             Logger.getLogger(CadastroUsuario.class.getName()).log(Level.SEVERE, null, ex);
-             DebugLoggerSwing.log("Erro encontrado", ex);
+             DebugLoggerSwing.log("Erro encontrado em cadastra", ex);
         }
         try {
              DebugLoggerSwing.log("Conectando com o banco de dados");
@@ -289,7 +320,7 @@ public class CadastroUsuario extends javax.swing.JInternalFrame {
             tabelaModelo.setNumRows(0);
             while(rs.next()){
                 Object [] dados = {rs.getString("id_usuario"),rs.getString("nome"),rs.getString("email"),
-                    rs.getString("senha")};
+                    rs.getString("senha"),rs.getString("statusL")};
                 tabelaModelo.addRow(dados);
 
             }
@@ -299,12 +330,18 @@ public class CadastroUsuario extends javax.swing.JInternalFrame {
 
         } catch (SQLException ex) {
             Logger.getLogger(CadastroUsuario.class.getName()).log(Level.SEVERE, null, ex);
-             DebugLoggerSwing.log("Erro encontrado", ex);
+             DebugLoggerSwing.log("Erro encontrado Cadastra", ex);
         }
     }//GEN-LAST:event_btCadastrarActionPerformed
 
     private void btExcluirMouseClicked(java.awt.event.MouseEvent evt) {//GEN-FIRST:event_btExcluirMouseClicked
         // TODO add your handling code here:
+        int confirmacao = JOptionPane.showConfirmDialog(null,"Tem certeza?" , "confirmaçao de exclusao", JOptionPane.YES_NO_OPTION);
+        
+        if(confirmacao != JOptionPane.YES_NO_OPTION) {
+        return;
+        }
+        
         try {
              DebugLoggerSwing.log("Conectando com o banco de dados");
             Connection con = Conexao.conexaoBanco();
@@ -317,13 +354,15 @@ public class CadastroUsuario extends javax.swing.JInternalFrame {
             con.close();
             JOptionPane.showMessageDialog(null, "Usuário Excluido com Sucesso!!!");
              DebugLoggerSwing.log("Iniciando Exclusao");
+            id.setText(null);
             nome.setText(null);
             email.setText(null);
             senha.setText(null);
+       
 
         } catch (SQLException ex) {
             Logger.getLogger(CadastroUsuario.class.getName()).log(Level.SEVERE, null, ex);
-             DebugLoggerSwing.log("Erro encontrado", ex);
+             DebugLoggerSwing.log("Erro encontrado Excluir", ex);
         }
         try {
             DebugLoggerSwing.log("Conectando com o banco de dados");
@@ -336,7 +375,7 @@ public class CadastroUsuario extends javax.swing.JInternalFrame {
             tabelaModelo.setNumRows(0);
             while(rs.next()){
                 Object [] dados = {rs.getString("id_usuario"),rs.getString("nome"),rs.getString("email"),
-                    rs.getString("senha")};
+                    rs.getString("senha"),rs.getString("statusL")};
                 tabelaModelo.addRow(dados);
 
             }
@@ -346,7 +385,7 @@ public class CadastroUsuario extends javax.swing.JInternalFrame {
 
         } catch (SQLException ex) {
             Logger.getLogger(CadastroUsuario.class.getName()).log(Level.SEVERE, null, ex);
-             DebugLoggerSwing.log("Erro encontrado", ex);
+             DebugLoggerSwing.log("Erro encontrado Excluir", ex);
         }    
     }//GEN-LAST:event_btExcluirMouseClicked
 
@@ -354,7 +393,7 @@ public class CadastroUsuario extends javax.swing.JInternalFrame {
  try {
             DebugLoggerSwing.log("Conectando com o banco de dados");
             Connection con = Conexao.conexaoBanco();
-            String sql = "UPDATE usuario SET nome = ?,email = ?,senha = ?";
+            String sql = "UPDATE usuario SET nome = ?,email = ?,senha = ? ";
             PreparedStatement stmt = con.prepareStatement(sql);
             stmt.setString(1, nome.getText());
               DebugLoggerSwing.log("Alterando nome " + nome);
@@ -362,6 +401,9 @@ public class CadastroUsuario extends javax.swing.JInternalFrame {
                DebugLoggerSwing.log("Alterando email" + email);
             stmt.setString(3, senha.getText());
                DebugLoggerSwing.log("Alterando senha" + senha);
+            
+           
+ 
             stmt.executeUpdate();
             stmt.close();
             con.close();
@@ -369,9 +411,13 @@ public class CadastroUsuario extends javax.swing.JInternalFrame {
             nome.setText(null);
             email.setText(null);
             senha.setText(null);
+          
+        
+   
+      
         } catch (SQLException ex) {
             Logger.getLogger(CadastroUsuario.class.getName()).log(Level.SEVERE, null, ex);
-              DebugLoggerSwing.log("Erro encontrado", ex);
+              DebugLoggerSwing.log("Erro encontrado Alterar", ex);
         }
         try {
             DebugLoggerSwing.log("Conectando com o banco de dados");
@@ -383,7 +429,7 @@ public class CadastroUsuario extends javax.swing.JInternalFrame {
             tabelaModelo.setNumRows(0);
             while(rs.next()){
                 Object [] dados = {rs.getString("id_usuario"),rs.getString("nome"),rs.getString("email"),
-                rs.getString("senha")};
+                rs.getString("senha"),rs.getString("statusL")};
                 tabelaModelo.addRow(dados);
                 
             }
@@ -393,10 +439,14 @@ public class CadastroUsuario extends javax.swing.JInternalFrame {
             
         } catch (SQLException ex) {
             Logger.getLogger(CadastroUsuario.class.getName()).log(Level.SEVERE, null, ex);
-             DebugLoggerSwing.log("Erro encontrado", ex);
+             DebugLoggerSwing.log("Erro encontrado alterar", ex);
         }
             // TODO add your handling code here:
     }//GEN-LAST:event_btAlterarMouseClicked
+
+    private void btExcluirActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btExcluirActionPerformed
+        // TODO add your handling code here:
+    }//GEN-LAST:event_btExcluirActionPerformed
 
 
     // Variables declaration - do not modify//GEN-BEGIN:variables
@@ -412,9 +462,11 @@ public class CadastroUsuario extends javax.swing.JInternalFrame {
     private javax.swing.JLabel jLabel4;
     private javax.swing.JLabel jLabel5;
     private javax.swing.JLabel jLabel6;
+    private javax.swing.JLabel jLabel7;
     private javax.swing.JScrollPane jScrollPane1;
     private javax.swing.JTextField nome;
     private javax.swing.JTextField senha;
+    private javax.swing.JTextField statusL;
     private javax.swing.JTable tabela;
     // End of variables declaration//GEN-END:variables
 }
